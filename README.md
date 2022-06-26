@@ -89,7 +89,7 @@ Once cloned and sdl2 is installed, run with cargo run.
 ## Roadmap
 
 - [ ] Basic game working
-    - [ ] Paddles rendering.
+    - [X] Paddles rendering.
     - [ ] Ball moving randomly.
     - [ ] Ball and wall collision working. 
     - [ ] Ball and paddle collision working.

@@ -1,27 +1,50 @@
-use sdl2::{render::Canvas, Sdl, video::Window, VideoSubsystem, pixels::Color};
+use sdl2::{render::Canvas, Sdl, video::Window, VideoSubsystem, pixels::Color, EventPump, rect::Rect};
+
+use crate::player_manager::{Players, Player};
 
 
 
 pub struct WindowManager {
     pub canvas: Canvas<Window>,
-    bg_col: Color
+    bg_col: Color,
+    paddle_col: Color,
+    pub window_size: (u32, u32),
+    pub event_pump: EventPump
 }
 
 impl WindowManager {
-    pub fn build_window(sdl_context: &Sdl) -> WindowManager {
+    pub fn build_window() -> WindowManager {
+        let sdl_context = sdl2::init().unwrap();
         let v_subsys = create_video_sub_sys(&sdl_context); 
         let window = create_window(v_subsys);
+        let window_size = window.size();
         let canvas = create_canvas(window);        
         let bg_col = Color::RGB(0, 0, 0);
+        let paddle_col = Color::RGB(0, 255, 0);
+        let event_pump = sdl_context.event_pump().unwrap();
 
-        WindowManager { canvas, bg_col }
+        WindowManager { canvas, bg_col, paddle_col, window_size , event_pump}
     }
 
-    pub fn refresh(&mut self) {
+    pub fn refresh(&mut self, players: &mut Players) {
         self.canvas.set_draw_color(self.bg_col);
         self.canvas.present();
+        self.render_paddles(players);
+        self.render_ball(&players.player[0]);
+        self.canvas.present();
     }
-   
+    
+    fn render_paddles(&mut self, players: &mut Players) {
+        self.canvas.set_draw_color(self.paddle_col);
+        self.canvas.fill_rect(players.player[0].paddle).unwrap();
+        self.canvas.fill_rect(players.player[1].paddle).unwrap();
+    }
+
+    fn render_ball(&mut self, player: &Player) {
+        let size = player.paddle.width();
+        let ball = Rect::new(self.window_size.0 as i32 / 2, self.window_size.1 as i32 / 2, size, size);
+        self.canvas.fill_rect(ball).unwrap();
+    }
 }
 
 fn create_canvas(window: Window) -> Canvas<Window> {
