@@ -30,7 +30,7 @@ impl WindowManager {
         self.canvas.set_draw_color(self.bg_col);
         self.canvas.present();
         self.render_paddles(players);
-        self.render_ball(&players.player[0]);
+        self.render_ball(&players);
         self.canvas.present();
     }
     
@@ -40,10 +40,8 @@ impl WindowManager {
         self.canvas.fill_rect(players.player[1].paddle).unwrap();
     }
 
-    fn render_ball(&mut self, player: &Player) {
-        let size = player.paddle.width();
-        let ball = Rect::new(self.window_size.0 as i32 / 2, self.window_size.1 as i32 / 2, size, size);
-        self.canvas.fill_rect(ball).unwrap();
+    fn render_ball(&mut self, players: &Players) {
+        self.canvas.fill_rect(players.ball.rect).unwrap();
     }
 }
 
