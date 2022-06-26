@@ -10,9 +10,9 @@
     <br />
     <br />
     <br />
-    <a href="https://github.com/MightyGiant21/RustyJack/issues">Report Bug</a>
+    <a href="https://github.com/MightyGiant21/Pong/issues">Report Bug</a>
     ·
-    <a href="https://github.com/MightyGiant21/RustyJack/issues">Request Feature</a>
+    <a href="https://github.com/MightyGiant21/Pong/issues">Request Feature</a>
   </p>
 </div>
 
@@ -69,7 +69,7 @@ To get a local copy up and running follow these simple example steps.
 
 1. Clone the repo
    ```sh
-   git clone git@github.com:MightyGiant21/RustyJack.git
+   git clone git@github.com:MightyGiant21/Pong.git
    ```
 2. Install sdl2 
    ```sh
@@ -102,7 +102,7 @@ Once cloned and sdl2 is installed, run with cargo run.
     - [ ] Create and join lobbies
 - [ ] Cross-compile for Windows and Mac 
 
-See the [open issues](https://github.com/MightyGiant21/RustyJack/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/MightyGiant21/Pong/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -135,10 +135,10 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/MightyGiant21/RustyJack/graphs/contributors
+[contributors-url]: https://github.com/MightyGiant21/Pong/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/MightyGiant21/RustyJack/network/members
+[forks-url]: https://github.com/MightyGiant21/Pong/network/members
 [issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/MightyGiant21/RustyJack/issues
+[issues-url]: https://github.com/MightyGiant21/Pong/issues
 [license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/MightyGiant21/RustyJack/blob/main/LICENSE.txt
+[license-url]: https://github.com/MightyGiant21/Pong/blob/main/LICENSE.txt
