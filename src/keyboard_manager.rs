@@ -1,11 +1,11 @@
-use sdl2::{EventPump, keyboard::Keycode, event::Event};
+use sdl2::{event::Event, keyboard::Keycode, EventPump};
 
 #[derive(PartialEq)]
 pub enum KeyStroke {
     Up,
     Down,
     None,
-    EndGame
+    EndGame,
 }
 
 pub fn get_key_press(event_pump: &mut EventPump) -> KeyStroke {
@@ -14,16 +14,16 @@ pub fn get_key_press(event_pump: &mut EventPump) -> KeyStroke {
             Event::KeyDown {
                 keycode: Some(Keycode::Escape),
                 ..
-            } => {return KeyStroke::EndGame}
+            } => return KeyStroke::EndGame,
             Event::KeyDown {
                 keycode: Some(Keycode::W),
                 ..
-            } => {return KeyStroke::Up}
+            } => return KeyStroke::Up,
             Event::KeyDown {
                 keycode: Some(Keycode::S),
                 ..
-            } => {return KeyStroke::Down}
-            _ => {return KeyStroke::None}
+            } => return KeyStroke::Down,
+            _ => return KeyStroke::None,
         }
     }
     KeyStroke::None
