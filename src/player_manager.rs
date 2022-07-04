@@ -1,5 +1,7 @@
 use sdl2::rect::Rect;
 
+use crate::keyboard_manager::KeyStroke;
+
 pub struct Ball {
     pub rect: Rect,
 }
@@ -18,25 +20,49 @@ impl Ball {
 }
 pub struct Player {
     pub paddle: Rect,
-    pub top_coord: i32,
-    pub bot_coord: i32,
+    height: u32,
+    top_coord: i32,
+    bot_coord: i32,
 }
 
 impl Player {
     pub fn init_player(window_size: &(u32, u32)) -> Player {
         let x = 10;
-        let y = (window_size.1 / 2) as i32;
         let width = window_size.0 / 70;
         let height = window_size.1 / 10;
-        let paddle = Rect::new(x, y, width, height);
         let top_coord = (window_size.1 as i32 / 2) + (height / 2) as i32;
+        let paddle = Rect::new(x, top_coord, width, height);
         let bot_coord = top_coord + height as i32;
 
         Player {
             paddle,
+            height,
             top_coord,
             bot_coord,
         }
+    }
+
+    pub fn move_paddle(&mut self, direction: KeyStroke) {
+        // We need to change this so we can use the range when looking for a collision
+        // Has nothing to do with renderring
+        match direction {
+            KeyStroke::Up => {
+                self.top_coord -= 10;
+                self.bot_coord -= 10;
+            },
+            KeyStroke::Down => {
+                self.top_coord += 10;
+                self.bot_coord += 10;
+            },
+            KeyStroke::None => {},
+            KeyStroke::EndGame => {},
+        }
+
+        self.update_paddle_rect()
+    }
+
+    fn update_paddle_rect(&mut self) {
+        self.paddle.y = self.top_coord;
     }
 }
 

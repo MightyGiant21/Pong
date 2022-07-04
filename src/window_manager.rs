@@ -2,7 +2,7 @@ use sdl2::{
     pixels::Color, render::Canvas, video::Window, EventPump, Sdl, VideoSubsystem,
 };
 
-use crate::player_manager::{Players};
+use crate::{player_manager::{Players}, keyboard_manager::KeyStroke};
 
 pub struct WindowManager {
     pub canvas: Canvas<Window>,
@@ -35,6 +35,7 @@ impl WindowManager {
     pub fn refresh(&mut self, players: &mut Players) {
         self.canvas.set_draw_color(self.bg_col);
         self.canvas.present();
+        self.canvas.clear();
         self.render_paddles(players);
         self.render_ball(&players);
         self.canvas.present();

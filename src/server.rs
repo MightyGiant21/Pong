@@ -1,18 +1,29 @@
 use std::{
     io::{Error, Read},
     net::{TcpListener, TcpStream},
-    str::from_utf8,
+    str::from_utf8, sync::mpsc, thread,
 };
 
 pub struct GameServer {
     listener: TcpListener,
+    pub msg: String
 }
 
 impl GameServer {
     pub fn start_server(addr: String) -> GameServer {
         let listener = create_listener(addr);
+        let msg = String::new();
+        GameServer { listener, msg}
+    }
 
-        GameServer { listener }
+    pub fn listen_to_strea(&mut self) {
+        let (tx, rx) = mpsc::channel();
+
+        thread::spawn(move || {
+            let msg = String::from("Hi");
+            tx.send(msg).unwrap();
+        });
+
     }
 
     pub fn listen_to_stream(&mut self) {
@@ -22,12 +33,10 @@ impl GameServer {
 
             match stream.read(&mut buf) {
                 Ok(_) => {
-                    println!("data {}", from_utf8(&mut buf).unwrap());
+                    self.msg = from_utf8(&mut buf).unwrap().to_string();
                 }
                 Err(_) => {}
             };
-
-            // handle_connection(stream)
         }
     }
 }

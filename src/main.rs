@@ -21,6 +21,7 @@ fn main() {
 
     let mut msg;
 
+
     let mut window = WindowManager::build_window();
     let mut players = Players::init_players(&window.window_size);
 
@@ -29,11 +30,13 @@ fn main() {
             KeyStroke::EndGame => break 'running,
             KeyStroke::Up => {
                 msg = "up".to_string();
-                client::write_to_stream(&msg)
+                client::write_to_stream(&msg);
+                players.player[0].move_paddle(KeyStroke::Up)
             }
             KeyStroke::Down => {
                 msg = "down".to_string();
-                client::write_to_stream(&msg)
+                client::write_to_stream(&msg);
+                players.player[0].move_paddle(KeyStroke::Down)
             }
             KeyStroke::None => {}
         }
