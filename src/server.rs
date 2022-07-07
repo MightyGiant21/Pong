@@ -1,7 +1,7 @@
 use std::{
     io::{Error, Read},
     net::{TcpListener, TcpStream},
-    str::from_utf8
+    str::from_utf8, thread::{self}
 };
 
 pub struct GameServer {
@@ -21,10 +21,8 @@ impl GameServer {
             let mut stream = get_stream(stream);
             let mut buf = [0; 512];
 
-            println!("{:?}", stream);
             match stream.read(&mut buf) {
                 Ok(_) => {
-                    self.msg = from_utf8(&mut buf).unwrap().to_string();
                 }
                 Err(_) => {}
             };
