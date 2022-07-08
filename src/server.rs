@@ -1,8 +1,10 @@
 use std::{
     io::{Error, Read},
     net::{TcpListener, TcpStream},
-    str::from_utf8, thread::{self}
+    sync::mpsc::Sender
 };
+
+use crate::player_manager::Direction;
 
 pub struct GameServer {
     pub listener: TcpListener,
@@ -16,17 +18,37 @@ impl GameServer {
         GameServer { listener, msg}
     }
 
-    pub fn listen_to_stream(&mut self) {
+    pub fn listen_to_stream(&mut self, tx: Sender<Direction>) {
         for stream in self.listener.incoming() {
             let mut stream = get_stream(stream);
-            let mut buf = [0; 512];
+            let mut buf = [0; 255];
 
             match stream.read(&mut buf) {
                 Ok(_) => {
+                    let msg = String::from_utf8(buf.to_vec()).unwrap();
+                    let dir = decode_message(msg); 
+                    tx.send(dir).unwrap();
                 }
                 Err(_) => {}
             };
         }
+    }
+}
+
+fn decode_message(msg: String) -> Direction {
+    let msg_v = msg.chars().collect::<Vec<char>>();
+    let mut decoded_msg = String::new();
+
+    for i in 0..msg.len() {
+        if msg.as_bytes()[i] != 0 {
+            decoded_msg.push(msg_v[i]) 
+        }
+    }
+
+    match decoded_msg.as_str() {
+        "up" => return Direction::Up,
+        "down" => return Direction::Down,
+        _ => return Direction::None
     }
 }
 

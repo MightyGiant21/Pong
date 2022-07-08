@@ -1,6 +1,12 @@
 use sdl2::rect::Rect;
 
-use crate::keyboard_manager::KeyStroke;
+#[derive(Debug, Copy, Clone)]
+pub enum Direction {
+    Up,
+    Down,
+    None
+}
+
 
 pub struct Ball {
     pub rect: Rect,
@@ -42,20 +48,19 @@ impl Player {
         }
     }
 
-    pub fn move_paddle(&mut self, direction: KeyStroke) {
+    pub fn move_paddle(&mut self, direction: Direction) {
         // We need to change this so we can use the range when looking for a collision
         // Has nothing to do with renderring
         match direction {
-            KeyStroke::Up => {
+            Direction::Up => {
                 self.top_coord -= 10;
                 self.bot_coord -= 10;
             },
-            KeyStroke::Down => {
+            Direction::Down => {
                 self.top_coord += 10;
                 self.bot_coord += 10;
             },
-            KeyStroke::None => {},
-            KeyStroke::EndGame => {},
+            Direction::None => {},
         }
 
         self.update_paddle_rect()
